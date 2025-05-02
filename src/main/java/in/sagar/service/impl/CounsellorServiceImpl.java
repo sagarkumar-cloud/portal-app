@@ -1,13 +1,15 @@
-package in.sagar.service;
+package in.sagar.service.impl;
 
 import java.util.Optional;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import in.sagar.dto.LoginDto;
 import in.sagar.dto.RegisterDto;
 import in.sagar.entity.Counsellor;
 import in.sagar.repo.CounsellorRepo;
+import in.sagar.service.CounsellorService;
 
 @Service
 public class CounsellorServiceImpl implements CounsellorService{
@@ -20,30 +22,28 @@ public class CounsellorServiceImpl implements CounsellorService{
 
 	@Override
 	public Counsellor login(LoginDto loginDto) {
-	Counsellor counsellor=counsellorRepo.findByEmailAndPassword(loginDto.getEmail(), loginDto.getPassword()).get();
-	  if(counsellor.getCounsellorId() != null) {
-		  return counsellor;
+	Optional<Counsellor> counsellor=counsellorRepo.findByEmailAndPassword(loginDto.getEmail(), loginDto.getPassword());
+	  if(counsellor.isPresent()) {
+		return counsellor.get();
 	  } 
 		return null;
 	}
 
 	@Override
 	public boolean register(RegisterDto registerDto) {
-		Counsellor coun=mapToCounsellor(registerDto);
-		if(! isEmailAvailable(registerDto.getEmail())) {
-			counsellorRepo.save(coun);
-			return true;
-		}
-		return false;
+		Counsellor counsellor= new Counsellor();
+		BeanUtils.copyProperties(registerDto, counsellor);
+		Counsellor save = counsellorRepo.save(counsellor);
+		return save.getCounsellorId()!=null;
 	}
 
 	@Override
 	public boolean isEmailAvailable(String email) {
 		Optional<Counsellor> byEmail = counsellorRepo.findByEmail(email);
 		if(byEmail.isPresent()) {
-			return true;
+			return false;
 		}
-		return false;
+		return true;
 	}
 	
 	public Counsellor mapToCounsellor(RegisterDto registerDto) {

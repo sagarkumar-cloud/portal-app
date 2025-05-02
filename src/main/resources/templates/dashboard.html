@@ -1,13 +1,74 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
-  </head>
-  <body>
-    <h1>Hello, world!</h1>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
-  </body>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bootstrap demo</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7"
+	crossorigin="anonymous">
+
+  <link th:href="@{/css/dashboardPage.css}" rel="stylesheet" />
+
+</head>
+<body>
+
+	<nav class="navbar navbar-expand-lg bg-body-tertiary">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="#">Dashboard</a>
+
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item"><a class="nav-link active"
+						aria-current="page" href="/addEnq">Add Enquiry</a></li>
+					<li class="nav-item"><a class="nav-link" href="/viewEnq">View
+							Enquiry</a></li>
+
+				</ul>
+
+				<form class="d-flex" role="search" th:action="@{/logout}"
+					method="get">
+					<button class="btn btn-danger" type="submit">Logout</button>
+				</form>
+			</div>
+		</div>
+	</nav>
+
+	<div class="container mt-4">
+    <div class="row text-center">
+        <div class="col-md-3">
+            <div class="dashboard-card" style="background: linear-gradient(135deg, #1e3c72, #2a5298);">
+                <div class="dashboard-title">Total Enquiries</div>
+                <div class="dashboard-value" th:text="${dashboardData.totalEnquiry}">18</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="dashboard-card" style="background: linear-gradient(135deg, #11998e, #38ef7d);">
+                <div class="dashboard-title">Open Enquiries</div>
+                <div class="dashboard-value" th:text="${dashboardData.openEnquiry}">7</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="dashboard-card" style="background: linear-gradient(135deg, #f7971e, #ffd200);">
+                <div class="dashboard-title">Enrolled Enquiries</div>
+                <div class="dashboard-value" th:text="${dashboardData.enrolledEnquiry}">7</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="dashboard-card" style="background: linear-gradient(135deg, #cb2d3e, #ef473a);">
+                <div class="dashboard-title">Lost Enquiries</div>
+                <div class="dashboard-value" th:text="${dashboardData.lostEnquiry}">3</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
+		crossorigin="anonymous"></script>
+</body>
 </html>

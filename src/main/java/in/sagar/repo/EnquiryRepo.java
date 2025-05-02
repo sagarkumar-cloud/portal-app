@@ -7,9 +7,11 @@ import org.springframework.data.jpa.repository.Query;
 
 import in.sagar.entity.Enquiry;
 
-public interface EnquiryRepo extends JpaRepository<Enquiry, Integer>{
+public interface EnquiryRepo extends JpaRepository<Enquiry, Integer> {
 
-
-	@Query("from Enquiry where counsellor_id= :counsellorId")
-	List<Enquiry> getAllEnqByCounsellorId(Integer counsellorId);
+	@Query(value = "select * from enquiry_tbl where counsellor_id= :counsellorId", nativeQuery = true)
+	List<Enquiry> fetchEnqsWithCounsellorId(Integer counsellorId);
+	
+	//we can also use this method to retrieve all enquiry
+	List<Enquiry> findByCounsellorCounsellorId(Integer counsellorId);
 }

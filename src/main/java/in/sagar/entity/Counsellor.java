@@ -15,7 +15,7 @@ import lombok.Setter;
 @Entity
 @Setter
 @Getter
-@Table(name="counsellor_tbl")
+@Table(name = "counsellor_tbl")
 public class Counsellor {
 
 	@Id
@@ -25,7 +25,7 @@ public class Counsellor {
 	private String email;
 	private String password;
 	private Long phno;
-	
+
 	@CreationTimestamp
 	private LocalDate createdDate;
 }

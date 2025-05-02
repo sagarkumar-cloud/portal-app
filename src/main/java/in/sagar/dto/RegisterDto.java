@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class RegisterDto {
 
+	private Integer counsellorId;
 	private String name;
 	private String email;
 	private String password;
